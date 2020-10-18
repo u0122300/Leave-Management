@@ -6,23 +6,25 @@ using AutoMapper;
 using Leave_Management.Contracts;
 using Leave_Management.Data;
 using Leave_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leave_Management.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _repo;
         private readonly IMapper _mapper;
-
+        
         public LeaveTypesController(ILeaveTypeRepository repo,
                                     IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
-
+        
         // GET: LeaveTypesController
         public ActionResult Index()
         {
@@ -30,7 +32,7 @@ namespace Leave_Management.Controllers
             var model = _mapper.Map<ICollection<LeaveType>, List<LeaveTypeVM>>(leavetypes);
             return View(model);
         }
-
+       
         // GET: LeaveTypesController/Details/5
         public ActionResult Details(int id)
         {
@@ -42,13 +44,14 @@ namespace Leave_Management.Controllers
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
-
+       
+        
         // GET: LeaveTypesController/Create
         public ActionResult Create()
         {
             return View();
         }
-
+       
         // POST: LeaveTypesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
