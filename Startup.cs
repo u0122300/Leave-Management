@@ -40,7 +40,7 @@ namespace Leave_Management
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
             services.AddAutoMapper(typeof(Maps));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -52,7 +52,7 @@ namespace Leave_Management
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
                               IWebHostEnvironment env,
-                              UserManager<IdentityUser>userManager,
+                              UserManager<Employee> userManager,
                               RoleManager<IdentityRole>roleManager)
         {
             if (env.IsDevelopment())
